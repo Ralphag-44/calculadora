@@ -174,24 +174,21 @@ function btn_presscedEquals(){
     if (user_v[0] != "-"){
         user_v = "+" + user_v
     }
-    l = 100
-    while(user_v*0 != 1*0 && l > 0){
+    while(user_v*0 != 1*0){
         console.log(user_v)
-        l--
-        console.log( (user_v.indexOf("/") > 0 && user_v.indexOf("") < 0))
         if (user_v.indexOf("*") > -1 || user_v.indexOf("/") > -1){
-            if ((user_v.indexOf("/") < user_v.indexOf("") && user_v.indexOf("/") != -1 ) || (user_v.indexOf("/") > 0 && user_v.indexOf("*") < 0)){
+            if ((user_v.indexOf("/") < user_v.indexOf("*") && user_v.indexOf("/") != -1 ) || (user_v.indexOf("/") > 0 && user_v.indexOf("*") < 0)){
                 console.log("div")
                 par_g = user_v.indexOf("/")
                 par_1 = par_g-1
                 par_2 = par_g+1
                 console.log(par_2)
-                while (user_v.charCodeAt(par_1) > 47){
+                while (user_v.charCodeAt(par_1) > 47 || user_v[par_1] == "."){
                     console.log(user_v.charCodeAt(par_1))
                     par_1--
                     console.log(user_v.charCodeAt(par_1))
                 }
-                while (user_v.charCodeAt(par_2) > 47){
+                while (user_v.charCodeAt(par_2) > 47 || user_v[par_2] == "."){
                     par_2++
                 }
                 user_array = user_v.substring(par_1, par_2).split("/")
@@ -202,18 +199,18 @@ function btn_presscedEquals(){
                 user_v = user_v.replace(user_v.substring(par_1, par_2), corr + user_array[0]*1 / user_array[1]*1)
                 console.log(user_v)
             }
-            else if ((user_v.indexOf("") < user_v.indexOf("/") && user_v.indexOf("") != -1 ) || (user_v.indexOf("*") > 0 && user_v.indexOf("/") < 0)){
+            else if ((user_v.indexOf("*") < user_v.indexOf("/") && user_v.indexOf("*") != -1 ) || (user_v.indexOf("*") > 0 && user_v.indexOf("/") < 0)){
                 console.log("mult")
                 par_g = user_v.indexOf("*")
                 par_1 = par_g-1
                 par_2 = par_g+1
                 console.log(par_2)
-                while (user_v.charCodeAt(par_1) > 47){
+                while (user_v.charCodeAt(par_1) > 47 || user_v[par_1] == "."){
                     console.log(user_v.charCodeAt(par_1))
                     par_1--
                     console.log(user_v.charCodeAt(par_1))
                 }
-                while (user_v.charCodeAt(par_2) > 47){
+                while (user_v.charCodeAt(par_2) > 47 || user_v[par_2] == "."){
                     par_2++
                 }
                 user_array = user_v.substring(par_1, par_2).split("*")
@@ -232,7 +229,7 @@ function btn_presscedEquals(){
             if (user_v.indexOf("-") > -1){
                 ltd1 = user_v.indexOf("-")
                 ltd2 = ltd1+1
-                while (user_v.charCodeAt(ltd2) > 47){
+                while (user_v.charCodeAt(ltd2) > 47 || user_v[ltd2] == ".") {
                     ltd2++
                 }
                 rst -= Number(user_v.substring(ltd1, ltd2).replace("-", ""))
@@ -241,7 +238,7 @@ function btn_presscedEquals(){
             else if (user_v.indexOf("+") > -1){
                 ltd1 = user_v.indexOf("+")
                 ltd2 = ltd1+1
-                while (user_v.charCodeAt(ltd2) > 47){
+                while (user_v.charCodeAt(ltd2) > 47 || user_v[ltd2] == "."){    
                     ltd2++
                 }
                 rst += Number(user_v.substring(ltd1, ltd2).replace("+", ""))
