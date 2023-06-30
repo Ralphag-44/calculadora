@@ -169,10 +169,130 @@ function btn_presscedTimes(){
     }
 }
 
+function split_complx_nat(user_v){
+    part_n = ""
+    part_c = ""
+    lmt1 = 100
+    while ((user_v.indexOf("i") > -1) && lmt1 > 0){
+    lmt1--
+    part_2 = user_v.indexOf("i")
+    part_1 = part_2-1
+    console.log("s")
+    while(user_v.charCodeAt(part_1) > 47){
+        part_1--
+    }
+    part_2++
+    part_c += user_v.substring(part_1, part_2)
+    console.log(part_c)
+    user_v = user_v.replace(user_v.substring(part_1, part_2), "")
+    }
+    part_n = user_v
+    console.log(part_n)
+    console.log(part_c)
+    lmt2 = 100
+    part_c = part_c.replaceAll("i", "")
+    while(part_c*0 != 1*0 && lmt2 > 0){
+        lmt2--      
+        if (part_c.indexOf("*") > -1 || part_c.indexOf("/") > -1){
+            if ((part_c.indexOf("/") < part_c.indexOf("*") && part_c.indexOf("/") != -1 ) || (part_c.indexOf("/") > 0 && part_c.indexOf("*") < 0)){
+                console.log("div")
+                par_g = part_c.indexOf("/")
+                par_1 = par_g-1
+                par_2 = par_g+1
+                console.log(par_2)
+                while (part_c.charCodeAt(par_1) > 47 || part_c[par_1] == "."){
+                    console.log(part_c.charCodeAt(par_1))
+                    par_1--
+                    console.log(part_c.charCodeAt(par_1))
+                }
+                while (part_c.charCodeAt(par_2) > 47 || part_c[par_2] == "."){
+                    par_2++
+                }
+                user_array = part_c.substring(par_1, par_2).split("/")
+                corr = ""
+                if (user_array[0]*1 / user_array[1]*1 > 0){
+                    corr = "+"
+                }
+                part_c = part_c.replace(part_c.substring(par_1, par_2), corr + user_array[0]*1 / user_array[1]*1)
+                console.log(part_c)
+            }
+            else if ((part_c.indexOf("*") < part_c.indexOf("/") && part_c.indexOf("*") != -1 ) || (part_c.indexOf("*") > 0 && part_c.indexOf("/") < 0)){
+                console.log("mult")
+                par_g = part_c.indexOf("*")
+                par_1 = par_g-1
+                par_2 = par_g+1
+                console.log(par_2)
+                while (part_c.charCodeAt(par_1) > 47 || part_c[par_1] == "."){
+                    console.log(part_c.charCodeAt(par_1))
+                    par_1--
+                    console.log(part_c.charCodeAt(par_1))
+                }
+                while (part_c.charCodeAt(par_2) > 47 || part_c[par_2] == "."){
+                    par_2++
+                }
+                user_array = part_c.substring(par_1, par_2).split("*")
+                corr = ""
+                if (user_array[0]*1 * user_array[1]*1 > 0){
+                    corr = "+"
+                }
+                part_c = part_c.replace(part_c.substring(par_1, par_2), corr + user_array[0]*1 * user_array[1]*1)
+                console.log(part_c)
+           
+            }
+            }
+        else{
+        rst = 0
+        for(i=part_c.length;i--;i>0){
+            if (part_c.indexOf("-") > -1){
+                ltd1 = part_c.indexOf("-")
+                ltd2 = ltd1+1
+                while (part_c.charCodeAt(ltd2) > 47 || part_c[ltd2] == ".") {
+                    ltd2++
+                }
+                rst -= Number(part_c.substring(ltd1, ltd2).replace("-", ""))
+                part_c = part_c.replace(part_c.substring(ltd1, ltd2), "")
+            }
+            else if (part_c.indexOf("+") > -1){
+                ltd1 = part_c.indexOf("+")
+                ltd2 = ltd1+1
+                while (part_c.charCodeAt(ltd2) > 47 || part_c[ltd2] == "."){    
+                    ltd2++
+                }
+                rst += Number(part_c.substring(ltd1, ltd2).replace("+", ""))
+                part_c = part_c.replace(part_c.substring(ltd1, ltd2), "")
+            }
+
+        }
+        part_c = rst
+    }
+   
+}
+tw_par = [
+    part_c,
+    part_n
+]
+return tw_par
+}
+
+
+function btn_presscedComplex(){
+    num = document.getElementById("btni").innerHTML;
+    if(i > 0){
+        document.getElementById("result").innerHTML += num;
+    }
+}
+
 function btn_presscedEquals(){
     user_v = document.getElementById("result").innerHTML.replaceAll("×", "*").replaceAll("÷", "/").replaceAll("−", "-")
+    user_vi = ""
     if (user_v[0] != "-"){
         user_v = "+" + user_v
+    }
+    if (user_v.indexOf("i") > -1){
+        tp = split_complx_nat(user_v)
+        console.log(tp)
+        user_v = tp[1]
+        user_vi = tp[0]
     }
     while(user_v*0 != 1*0){
         console.log(user_v)
@@ -250,7 +370,12 @@ function btn_presscedEquals(){
     }
    
 }
-document.getElementById("result").innerHTML = user_v
+if (user_vi.toString().length >  0){
+    document.getElementById("result").innerHTML = Number(user_v)+ " " + user_vi + "i"
+}
+else{
+    document.getElementById("result").innerHTML = Number(user_v)+ " " + user_vi + "i"
+}
 }
 
 
@@ -273,3 +398,4 @@ document.getElementById("btnM").addEventListener("click", btn_presscedMinus);
 document.getElementById("btnD").addEventListener("click", btn_presscedDivide);
 document.getElementById("btnT").addEventListener("click", btn_presscedTimes);
 document.getElementById("btnE").addEventListener("click", btn_presscedEquals);
+document.getElementById("btni").addEventListener("click", btn_presscedComplex);
