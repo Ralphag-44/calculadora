@@ -371,10 +371,10 @@ function btn_presscedEquals(){
    
 }
 if (user_vi.toString().length >  0){
-    document.getElementById("result").innerHTML = Number(user_v)+ " " + user_vi + "i"
+    document.getElementById("result").innerHTML = Number(user_v)+ "+(" + user_vi + "i)"
 }
 else{
-    document.getElementById("result").innerHTML = Number(user_v)+ " " + user_vi + "i"
+    document.getElementById("result").innerHTML = Number(user_v)
 }
 }
 
