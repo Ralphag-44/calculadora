@@ -112,12 +112,8 @@ function btn_pressced0(){
 
 function btn_presscedDot(){
     num = document.getElementById("btnDot").innerHTML;
-    if(i > 0 && f < 1){
-        f = 0
-        document.getElementById("result").innerHTML += num;
-        f++
-    }
-}
+    document.getElementById("result").innerHTML += num;
+    return i;
 
 function btn_presscedCE(){
     document.getElementById("result").innerHTML = 0;
