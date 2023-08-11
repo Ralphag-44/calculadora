@@ -169,6 +169,47 @@ function btn_presscedTimes(){
     }
 }
 
+
+function btn_presscedPart_1(){
+    num = document.getElementById("btn_par1").innerHTML;
+    if(i > 0){
+        document.getElementById("result").innerHTML += num;
+    }
+}
+
+
+function btn_presscedPart_2(){
+    num = document.getElementById("btn_par2").innerHTML;
+    if(i > 0){
+        document.getElementById("result").innerHTML += num;
+    }
+}
+
+
+function btn_presscedFat(){
+    num = document.getElementById("btn_fat").innerHTML;
+    if(i > 0){
+        document.getElementById("result").innerHTML += num;
+    }
+}
+
+
+function btn_presscedPot(){
+    num = document.getElementById("btnD").innerHTML;
+    if(i > 0){
+        document.getElementById("result").innerHTML += "^";
+    }
+}
+
+
+function btn_presscedRad(){
+    num = document.getElementById("btnD").innerHTML;
+    if(i > 0){
+        document.getElementById("result").innerHTML += "√";
+    }
+}
+
+
 function split_complx_nat(user_v){
     part_n = ""
     part_c = ""
@@ -288,6 +329,18 @@ function btn_presscedEquals(){
     if (user_v[0] != "-"){
         user_v = "+" + user_v
     }
+    for (i == user_v.length - user_v.replaceAll("!", ""); i > 0; i--){
+        let limt_2 = user_v.indexOf("!")
+        let limt_1 = limt_2-1
+        while (Number(user_v[limt_1])*0 == 0){
+            limt_1-- 
+        }
+        let res = Number(user_v.substring(limt_1+1, limt_2))
+        for (i = res-1; i > 1; i--){
+            res*=i
+        }
+        user_v = user_v.replace(user_v.substring(limt_1+1, limt_2+1), res)
+    }
     if (user_v.indexOf("i") > -1){
         tp = split_complx_nat(user_v)
         console.log(tp)
@@ -295,7 +348,6 @@ function btn_presscedEquals(){
         user_vi = tp[0]
     }
     while(user_v*0 != 1*0){
-        console.log(user_v)
         if (user_v.indexOf("*") > -1 || user_v.indexOf("/") > -1){
             if ((user_v.indexOf("/") < user_v.indexOf("*") && user_v.indexOf("/") != -1 ) || (user_v.indexOf("/") > 0 && user_v.indexOf("*") < 0)){
                 console.log("div")
@@ -398,4 +450,12 @@ document.getElementById("btnM").addEventListener("click", btn_presscedMinus);
 document.getElementById("btnD").addEventListener("click", btn_presscedDivide);
 document.getElementById("btnT").addEventListener("click", btn_presscedTimes);
 document.getElementById("btnE").addEventListener("click", btn_presscedEquals);
-document.getElementById("btni").addEventListener("click", btn_presscedComplex);
+document.getElementById("btni").addEventListener("click", btn_presscedComplex); 
+document.getElementById("btn_par1").addEventListener("click", btn_presscedPart_1); 
+document.getElementById("btn_par2").addEventListener("click", btn_presscedPart_2); 
+document.getElementById("btn_fat").addEventListener("click", btn_presscedFat); 
+document.getElementById("btn_pot").addEventListener("click", btn_presscedPot); 
+document.getElementById("btn_rad").addEventListener("click", btn_presscedRad); 
+
+
+
