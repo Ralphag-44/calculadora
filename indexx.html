@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleção de Países</title>
+</head>
+<body>
+
+    <h2>Selecione um país:</h2>
+
+    <select id="selectPaises" onchange="carregarDadosPais()">
+    </select>
+
+    <div id="dadosPais">
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const selectPaises = document.getElementById('selectPaises');
+            const dadosPais = document.getElementById('dadosPais');
+            fetch('paises.json')
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(pais => {
+                        const option = document.createElement('option');
+                        option.value = pais.nome_pais;
+                        option.textContent = pais.nome_pais;
+                        selectPaises.appendChild(option);
+                    });
+                })
+                .catch(error =>  dadosPais.innerHTML = `Erro ao Carregar arquivo JSON: ${error}`);
+        });
+
+        function carregarDadosPais() {
+            const selectedCountry = document.getElementById('selectPaises').value;
+
+            fetch('paises.json')
+                .then(response => response.json())
+                .then(data => {
+    const selectedData = data.find(pais => pais.nome_pais === selectedCountry);
+    if (selectedData) {
+        if (selectedData.gentilico && selectedData.nome_pais_int && selectedData.sigla) {
+            dadosPais.innerHTML = `<h3>${selectedData.nome_pais}</h3>
+                                   <p>Gentílico: ${selectedData.gentilico}</p>
+                                   <p>Nome Internacional: ${selectedData.nome_pais_int}</p>
+                                   <p>Sigla: ${selectedData.sigla}</p>`;
+        } else {
+            throw new Error('O país selecionado não possui todas as informações necessárias.');
+        }
+    } else {
+        throw new Error('País não encontrado nos dados do arquivo JSON.');
+    }
+})
+.catch(error => {
+    dadosPais.innerHTML = (`Erro: ${error.message}`);
+})
+}
+
+    </script>
+    <style>
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        background-color: #f8f8f8;
+    }
+
+    h2 {
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    #selectPaises {
+        padding: 10px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+    }
+
+    #dadosPais {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        max-width: 400px;
+        width: 100%;
+    }
+
+    h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    p {
+        margin: 5px 0;
+        color: #666;
+    }
+</style>
+
+    </style>
+</body>
+</html>
