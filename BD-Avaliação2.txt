@@ -1,0 +1,36 @@
+Sendo M o seu número de matrícula e utilizando a estrutura do banco de dados no arquivo hotel.sql, escreva um comando select para responder cada questão com resultado formatado conforme exemplificado:
+
+1) Caso M%7 seja:
+	0: Quartos desocupados no último domingo
+	1: Quartos desocupados na última segunda-feira
+	2: Quartos desocupados na última terça-feira
+	3: Quartos desocupados na última quarta-feira
+	4: Quartos desocupados na última quinta-feira
+	5: Quartos desocupados na última sexta-feira
+	6: Quartos desocupados no último sábado 
+
+andar | quarto
+------+-------
+1     | 101
+1     | 102
+
+2) Mês do ano com a maior quantidade de reservas nos últimos 2+(M%4) anos
+
+mes       | reservas
+----------+---------
+fevereiro | 1000
+
+3) UFs com as 2+(M%2) maiores quantidades de hospedagens nos últimos 1+(M%3) semestres
+* semestres de 01/01 a 30/06 e de 01/07 a 31/12
+
+UF | hospedagens
+---+------------
+RS | 100
+SC | 90
+
+4) Percentual de clientes que se hospedaram 2+(M%3) ou mais vezes nos últimos 1+(M%2) anos
+
+percentual
+----------
+15.35%
+
