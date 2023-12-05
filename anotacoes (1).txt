@@ -1,4 +1,26 @@
 SELECT
+    s1.nome AS sabor1,
+    s2.nome AS sabor2,
+    s3.nome AS sabor3,
+    COUNT(*) AS quantidade_pedidos
+FROM
+    pizzasabor ps1
+    JOIN pizzasabor ps2 ON ps1.pizza = ps2.pizza AND ps1.sabor < ps2.sabor
+    JOIN pizzasabor ps3 ON ps2.pizza = ps3.pizza AND ps2.sabor < ps3.sabor
+    JOIN sabor s1 ON ps1.sabor = s1.codigo
+    JOIN sabor s2 ON ps2.sabor = s2.codigo
+    JOIN sabor s3 ON ps3.sabor = s3.codigo
+    JOIN pizza p ON ps1.pizza = p.codigo
+    JOIN comanda c ON p.comanda = c.numero
+WHERE
+    c.data >= current_date - interval '3 months'
+GROUP BY
+    s1.nome, s2.nome, s3.nome
+ORDER BY
+    quantidade_pedidos DESC
+LIMIT 1;
+
+SELECT
     s1.sabor AS sabor1,
     s2.sabor AS sabor2,
     s3.sabor AS sabor3,
