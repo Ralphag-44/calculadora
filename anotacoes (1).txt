@@ -1,3 +1,28 @@
+WITH PizzasNoVerao AS (
+    SELECT DISTINCT
+        ps.pizza,
+        si.ingrediente
+    FROM
+        pizza p
+        JOIN comanda c ON p.comanda = c.numero
+        JOIN pizzasabor ps ON p.codigo = ps.pizza
+        JOIN saboringrediente si ON ps.sabor = si.sabor
+    WHERE
+        EXTRACT(MONTH FROM c.data) IN (12, 1, 2) AND EXTRACT(YEAR FROM c.data) = EXTRACT(YEAR FROM CURRENT_DATE)
+)
+
+SELECT
+    ing.nome AS ingrediente,
+    COUNT(*) AS quantidade_pedidos
+FROM
+    PizzasNoVerao pnv
+    JOIN ingrediente ing ON pnv.ingrediente = ing.codigo
+GROUP BY
+    ing.nome
+ORDER BY
+    quantidade_pedidos DESC;
+
+
 SELECT
     s1.nome AS sabor1,
     s2.nome AS sabor2,
