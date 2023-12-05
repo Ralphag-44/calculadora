@@ -1,3 +1,22 @@
+SELECT
+    s1.sabor AS sabor1,
+    s2.sabor AS sabor2,
+    s3.sabor AS sabor3,
+    COUNT(*) AS quantidade_pedidos
+FROM
+    pizzasabor s1
+    JOIN pizzasabor s2 ON s1.pizza = s2.pizza AND s1.sabor < s2.sabor
+    JOIN pizzasabor s3 ON s2.pizza = s3.pizza AND s2.sabor < s3.sabor
+    JOIN pizza p ON s1.pizza = p.codigo
+    JOIN comanda c ON p.comanda = c.numero
+WHERE
+    c.data >= current_date - interval '3 months'
+GROUP BY
+    s1.sabor, s2.sabor, s3.sabor
+ORDER BY
+    quantidade_pedidos DESC
+LIMIT 1;
+
 CAST: é usado para converter um valor de um tipo de dado para outro. 
 Exemplo: SELECT CAST(column_name AS new_data_type) FROM your_table;
 Exemplo prático: SELECT CAST('123' AS INTEGER);
